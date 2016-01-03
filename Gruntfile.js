@@ -1,10 +1,8 @@
 module.exports = function(grunt) {
   require('jit-grunt')(grunt);
 
-
-
-
   grunt.initConfig({
+  pkg: grunt.file.readJSON('package.json'),
 
   watch: {
     options: {
@@ -16,6 +14,13 @@ module.exports = function(grunt) {
     js: {
       files: ['js/**/*.js'],
     },
+      styles: {
+        files: ['less/**/*.less'], // which files to watch
+        tasks: ['less'],
+        options: {
+          nospawn: true
+        }
+      },
     html: {
       files: ['*.html'],
     }
@@ -44,20 +49,14 @@ module.exports = function(grunt) {
           "css/main.css": "less/main.less" // destination file and source file
         }
       }
-    },
-    watch: {
-      styles: {
-        files: ['less/**/*.less'], // which files to watch
-        tasks: ['less'],
-        options: {
-          nospawn: true
-        }
-      }
     }
   });
+
 grunt.registerTask('default', ['less', 'watch',]);
 grunt.registerTask('server', ['connect','watch']);
 grunt.loadNpmTasks('grunt-contrib-watch');
 grunt.loadNpmTasks('grunt-contrib-connect');
 
 };
+
+//test
